@@ -64,16 +64,16 @@ class MyCache{
 //        System.out.println(Thread.currentThread().getName()+"\t 读取完成，value："+result);
 
         //版本2：使用读锁，进行读操作的线程中途不会加塞到其他运行中的写线程。
-//        lock.readLock().lock();
-//        try{
-//            System.out.println(Thread.currentThread().getName()+"\t 正在读取："+key);
-//            try{ TimeUnit.MICROSECONDS.sleep(300); }catch(InterruptedException e){ e.printStackTrace(); }
-//            Object result=map.get(key);
-//            System.out.println(Thread.currentThread().getName()+"\t 读取完成，value："+result);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }finally {
-//            lock.readLock().unlock();
-//        }
+        lock.readLock().lock();
+        try{
+            System.out.println(Thread.currentThread().getName()+"\t 正在读取："+key);
+            try{ TimeUnit.MICROSECONDS.sleep(300); }catch(InterruptedException e){ e.printStackTrace(); }
+            Object result=map.get(key);
+            System.out.println(Thread.currentThread().getName()+"\t 读取完成，value："+result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.readLock().unlock();
+        }
     }
 }
